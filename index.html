@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kroisan Khatulistiwa | Cita Rasa Nusantara</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Playfair Display (Elegan/Tradisional) & Plus Jakarta Sans (Modern) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'batik-brown': '#5D4037',
+                        'batik-gold': '#C5A065',
+                        'batik-cream': '#F5F0E6',
+                        'batik-dark': '#3E2723',
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'batik-pattern': "url('https://www.transparenttextures.com/patterns/batik.png')", 
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for nuances */
+        body {
+            background-color: #FDFBF7;
+        }
+        
+        .batik-overlay {
+            background-image: radial-gradient(#C5A065 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+        }
+
+        .card-hovering:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(93, 64, 55, 0.15);
+        }
+
+        /* Hide scrollbar for horizontal scroll if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-stone-800 antialiased selection:bg-batik-gold selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm border-b border-batik-gold/20" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i data-lucide="croissant" class="h-8 w-8 text-batik-brown"></i>
+                    <span class="font-serif text-2xl font-bold text-batik-dark tracking-wide">Kroisan<span class="text-batik-gold">.</span></span>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-stone-600 hover:text-batik-brown font-medium transition">Beranda</a>
+                    <a href="#about" class="text-stone-600 hover:text-batik-brown font-medium transition">Tentang Kami</a>
+                    <a href="#menu" class="text-stone-600 hover:text-batik-brown font-medium transition">Menu Nusantara</a>
+                    <a href="#contact" class="text-stone-600 hover:text-batik-brown font-medium transition">Lokasi</a>
+                    
+                    <!-- Cart Button -->
+                    <button onclick="toggleCart()" class="relative p-2 text-batik-brown hover:bg-batik-cream rounded-full transition">
+                        <i data-lucide="shopping-bag" class="h-6 w-6"></i>
+                        <span id="cart-badge" class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full hidden">0</span>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-batik-brown focus:outline-none">
+                        <i data-lucide="menu" class="h-7 w-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-1 shadow-lg">
+                <a href="#home" class="block px-3 py-3 text-base font-medium text-stone-700 hover:text-batik-brown hover:bg-batik-cream rounded-md">Beranda</a>
+                <a href="#menu" class="block px-3 py-3 text-base font-medium text-stone-700 hover:text-batik-brown hover:bg-batik-cream rounded-md">Menu</a>
+                <button onclick="toggleCart()" class="w-full text-left px-3 py-3 text-base font-medium text-batik-brown font-bold">
+                    Lihat Keranjang
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/batik.png')]"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left space-y-6 animate-fade-in-up">
+                    <span class="inline-block py-1 px-3 rounded-full bg-batik-gold/10 text-batik-brown text-sm font-semibold tracking-wider uppercase border border-batik-gold/30">
+                        Sejak 2024
+                    </span>
+                    <h1 class="text-5xl lg:text-7xl font-serif font-bold text-batik-dark leading-tight">
+                        Teknik Perancis,<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-batik-brown to-batik-gold">Jiwa Nusantara.</span>
+                    </h1>
+                    <p class="text-lg text-stone-600 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+                        Rasakan perpaduan unik antara tekstur croissant yang <i>flaky</i> dan <i>buttery</i> dengan cita rasa lokal seperti Klepon, Rendang, dan Kopi Gayo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#menu" class="px-8 py-4 bg-batik-brown text-white rounded-full font-semibold shadow-lg hover:bg-batik-dark transition transform hover:-translate-y-1">
+                            Pesan Sekarang
+                        </a>
+                        <a href="#about" class="px-8 py-4 bg-white text-batik-brown border border-batik-brown/30 rounded-full font-semibold hover:bg-batik-cream transition">
+                            Cerita Kami
+                        </a>
+                    </div>
+                </div>
+                <div class="relative group perspective">
+                    <div class="absolute inset-0 bg-batik-gold rounded-full opacity-20 blur-3xl transform scale-90"></div>
+                    <!-- Hero Image -->
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                         alt="Croissant Nusantara" 
+                         class="relative rounded-2xl shadow-2xl w-full object-cover h-[500px] transform transition duration-700 hover:rotate-2 hover:scale-105 border-4 border-white">
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl border border-stone-100 flex items-center gap-3 animate-bounce-slow">
+                        <div class="bg-green-100 p-2 rounded-full text-green-700">
+                            <i data-lucide="leaf" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-stone-500 uppercase font-bold">Bahan Lokal</p>
+                            <p class="font-serif font-bold text-batik-dark">100% Rempah Asli</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Story -->
+    <section id="about" class="py-20 bg-batik-cream/30 border-y border-batik-gold/10">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+            <h2 class="text-3xl lg:text-4xl font-serif font-bold text-batik-dark">Filosofi Kami</h2>
+            <div class="w-24 h-1 bg-batik-gold mx-auto"></div>
+            <p class="text-stone-600 text-lg leading-relaxed">
+                "Kroisan Khatulistiwa lahir dari kerinduan akan tradisi. Kami tidak hanya memanggang adonan; kami melipat kenangan. Menggunakan mentega Eropa premium yang dipadukan dengan gula aren organik, pandan segar, dan rempah pilihan dari seluruh pelosok Indonesia."
+            </p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8">
+                <div class="text-center">
+                    <p class="text-3xl font-serif font-bold text-batik-brown">27+</p>
+                    <p class="text-sm text-stone-500 uppercase tracking-wide mt-2">Lapisan Adonan</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-serif font-bold text-batik-brown">100%</p>
+                    <p class="text-sm text-stone-500 uppercase tracking-wide mt-2">Halal & Premium</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-serif font-bold text-batik-brown">12</p>
+                    <p class="text-sm text-stone-500 uppercase tracking-wide mt-2">Varian Rasa</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-3xl font-serif font-bold text-batik-brown">0</p>
+                    <p class="text-sm text-stone-500 uppercase tracking-wide mt-2">Pengawet</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="py-24 bg-white relative">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-batik-pattern opacity-5 rounded-bl-full"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-batik-gold font-bold tracking-widest uppercase text-sm">Menu Favorit</span>
+                <h2 class="text-4xl font-serif font-bold text-batik-dark mt-2">Koleksi Tanda Mata</h2>
+            </div>
+
+            <!-- Filter Tabs (Visual Only for MVP) -->
+            <div class="flex justify-center space-x-4 mb-12 overflow-x-auto no-scrollbar">
+                <button class="px-6 py-2 bg-batik-brown text-white rounded-full text-sm font-medium whitespace-nowrap">Semua</button>
+                <button class="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-batik-cream rounded-full text-sm font-medium whitespace-nowrap transition">Manis</button>
+                <button class="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-batik-cream rounded-full text-sm font-medium whitespace-nowrap transition">Gurih (Savory)</button>
+                <button class="px-6 py-2 bg-stone-100 text-stone-600 hover:bg-batik-cream rounded-full text-sm font-medium whitespace-nowrap transition">Minuman</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Products will be injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-batik-dark text-white relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/batik.png')]"></div>
+
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-serif font-bold mb-6">Apa Kata Mereka?</h2>
+                    <p class="text-stone-300 mb-8 text-lg">Ribuan pelanggan telah jatuh cinta pada gigitan pertama.</p>
+                    <div class="flex items-center gap-4">
+                        <div class="flex -space-x-4">
+                            <img class="w-10 h-10 rounded-full border-2 border-batik-dark" src="https://i.pravatar.cc/100?img=1" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-batik-dark" src="https://i.pravatar.cc/100?img=5" alt="User">
+                            <img class="w-10 h-10 rounded-full border-2 border-batik-dark" src="https://i.pravatar.cc/100?img=8" alt="User">
+                        </div>
+                        <span class="text-sm font-medium text-batik-gold">4.9/5 Rating Pelanggan</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/10">
+                    <div class="flex text-batik-gold mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="italic text-stone-200 mb-6">"Saya tidak pernah membayangkan croissant bisa dipadukan dengan rasa Rendang. Rasanya meledak di mulut! Pastry-nya renyah sempurna, isiannya otentik."</p>
+                    <div>
+                        <p class="font-bold font-serif text-white">Siti Nurhaliza</p>
+                        <p class="text-xs text-stone-400">Food Blogger, Jakarta</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-stone-900 text-stone-400 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-stone-800 pb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2 text-white">
+                        <i data-lucide="croissant" class="h-6 w-6"></i>
+                        <span class="font-serif text-xl font-bold">Kroisan.</span>
+                    </div>
+                    <p class="text-sm">Menghadirkan kehangatan nusantara dalam setiap lapisan pastry.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Tautan</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-batik-gold transition">Beranda</a></li>
+                        <li><a href="#menu" class="hover:text-batik-gold transition">Pesan Online</a></li>
+                        <li><a href="#" class="hover:text-batik-gold transition">Karir</a></li>
+                        <li><a href="#" class="hover:text-batik-gold transition">Kemitraan</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Kontak</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="map-pin" class="w-5 h-5 mt-0.5"></i>
+                            <span>Jl. Batik Keris No. 45<br>Jakarta Selatan, 12190</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i data-lucide="phone" class="w-5 h-5"></i>
+                            <span>+62 812-3456-7890</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-white font-bold mb-4 uppercase text-sm tracking-wider">Jam Buka</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex justify-between">
+                            <span>Senin - Jumat</span>
+                            <span class="text-white">07:00 - 21:00</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span>Sabtu - Minggu</span>
+                            <span class="text-white">08:00 - 22:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 text-center text-xs">
+                &copy; 2024 Kroisan Khatulistiwa. Dibuat dengan cinta dan tepung.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Shopping Cart Sidebar (Hidden by default) -->
+    <div id="cart-sidebar" class="fixed inset-0 z-[60] hidden">
+        <!-- Backdrop -->
+        <div onclick="toggleCart()" class="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity"></div>
+        
+        <!-- Sidebar -->
+        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full" id="cart-panel">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-batik-cream/50">
+                <h2 class="text-xl font-serif font-bold text-batik-dark">Keranjang Anda</h2>
+                <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Empty State -->
+                <div class="text-center py-20 text-gray-400">
+                    <i data-lucide="shopping-basket" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                    <p>Keranjang masih kosong.</p>
+                    <p class="text-sm">Yuk, pilih varian favoritmu!</p>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-gray-50">
+                <div class="flex justify-between mb-4 text-lg font-bold text-batik-dark">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button onclick="checkout()" class="w-full py-3 bg-batik-brown text-white rounded-lg font-bold hover:bg-batik-dark transition flex justify-center items-center gap-2">
+                    <span>Checkout via WhatsApp</span>
+                    <i data-lucide="message-circle" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 z-[70] transform translate-y-20 transition-transform duration-300">
+        <div class="bg-batik-dark text-white px-6 py-4 rounded-lg shadow-lg flex items-center gap-3">
+            <i data-lucide="check-circle" class="text-green-400"></i>
+            <div>
+                <h4 class="font-bold text-sm">Berhasil Ditambahkan!</h4>
+                <p class="text-xs text-stone-300">Cek keranjang untuk pembayaran.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Produk
+        const products = [
+            {
+                id: 1,
+                name: "Croissant Klepon Lumer",
+                description: "Isian unti kelapa gula aren dengan topping kelapa kering dan pandan essence.",
+                price: 28000,
+                image: "https://images.unsplash.com/photo-1549488352-7d22eb78d59b?auto=format&fit=crop&w=600&q=80",
+                tag: "Best Seller"
+            },
+            {
+                id: 2,
+                name: "Croissant Rendang Padang",
+                description: "Fusion berani! Daging sapi rendang suwir pedas gurih di dalam lapisan flaky.",
+                price: 35000,
+                image: "https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=600&q=80",
+                tag: "Gurih"
+            },
+            {
+                id: 3,
+                name: "Salted Egg & Curry Leaf",
+                description: "Saus telur asin creamy dengan daun kari renyah. Gurih dan nagih.",
+                price: 32000,
+                image: "https://images.unsplash.com/photo-1530610476181-d83430b64dcd?auto=format&fit=crop&w=600&q=80",
+                tag: "Favorit"
+            },
+            {
+                id: 4,
+                name: "Choco Java Arabica",
+                description: "Coklat Belgia dipadukan dengan glaze kopi Arabica Jawa yang harum.",
+                price: 30000,
+                image: "https://images.unsplash.com/photo-1510629737085-c1fd8977a46c?auto=format&fit=crop&w=600&q=80",
+                tag: "Manis"
+            },
+            {
+                id: 5,
+                name: "Cheese & Smoked Beef",
+                description: "Klasik yang tak lekang waktu. Keju cheddar melimpah dan daging asap.",
+                price: 32000,
+                image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80",
+                tag: "Klasik"
+            },
+            {
+                id: 6,
+                name: "Almond Frangipane",
+                description: "Taburan almond panggang dengan isian krim almond yang lembut.",
+                price: 29000,
+                image: "https://images.unsplash.com/photo-1542287098-9588506e7886?auto=format&fit=crop&w=600&q=80",
+                tag: "Manis"
+            }
+        ];
+
+        // State Keranjang
+        let cart = [];
+
+        // Render Produk
+        const productGrid = document.getElementById('product-grid');
+        products.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-2xl overflow-hidden border border-stone-100 shadow-sm card-hovering transition duration-300 flex flex-col h-full';
+            card.innerHTML = `
+                <div class="relative h-48 overflow-hidden group">
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-batik-brown shadow-sm uppercase tracking-wide">
+                        ${product.tag}
+                    </div>
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-serif font-bold text-xl text-batik-dark leading-tight">${product.name}</h3>
+                    </div>
+                    <p class="text-stone-500 text-sm mb-4 flex-grow line-clamp-3">${product.description}</p>
+                    <div class="flex items-center justify-between mt-auto pt-4 border-t border-stone-100">
+                        <span class="text-lg font-bold text-batik-brown">Rp ${product.price.toLocaleString('id-ID')}</span>
+                        <button onclick="addToCart(${product.id})" class="bg-batik-dark text-white p-2 rounded-full hover:bg-batik-gold transition shadow-md group">
+                            <i data-lucide="plus" class="w-5 h-5 transition-transform group-hover:rotate-90"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            productGrid.appendChild(card);
+        });
+
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Fungsi Cart
+        function addToCart(id) {
+            const product = products.find(p => p.id === id);
+            const existingItem = cart.find(item => item.id === id);
+
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            // Update Badge
+            const badge = document.getElementById('cart-badge');
+            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+            
+            if (totalQty > 0) {
+                badge.innerText = totalQty;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+
+            // Update List HTML
+            const cartList = document.getElementById('cart-items');
+            const cartTotalEl = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartList.innerHTML = `
+                    <div class="text-center py-20 text-gray-400">
+                        <i data-lucide="shopping-basket" class="w-16 h-16 mx-auto mb-4 opacity-50"></i>
+                        <p>Keranjang masih kosong.</p>
+                    </div>`;
+                cartTotalEl.innerText = "Rp 0";
+            } else {
+                cartList.innerHTML = cart.map(item => `
+                    <div class="flex gap-4 items-center">
+                        <img src="${item.image}" class="w-16 h-16 rounded-lg object-cover bg-stone-100">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-batik-dark text-sm">${item.name}</h4>
+                            <p class="text-xs text-stone-500">Rp ${item.price.toLocaleString('id-ID')} x ${item.qty}</p>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-400 hover:text-red-600 p-1">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `).join('');
+                
+                // Re-init icons for the trash icon
+                lucide.createIcons();
+
+                const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+                cartTotalEl.innerText = "Rp " + total.toLocaleString('id-ID');
+            }
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const panel = document.getElementById('cart-panel');
+            
+            if (sidebar.classList.contains('hidden')) {
+                sidebar.classList.remove('hidden');
+                // Small delay for animation
+                setTimeout(() => {
+                    panel.classList.remove('translate-x-full');
+                }, 10);
+            } else {
+                panel.classList.add('translate-x-full');
+                setTimeout(() => {
+                    sidebar.classList.add('hidden');
+                }, 300);
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.remove('translate-y-20');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20');
+            }, 3000);
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            
+            let message = "Halo Kroisan Khatulistiwa! Saya ingin memesan:\n\n";
+            cart.forEach(item => {
+                message += `- ${item.name} (${item.qty}x) - Rp ${(item.price * item.qty).toLocaleString('id-ID')}\n`;
+            });
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            message += `\nTotal: Rp ${total.toLocaleString('id-ID')}`;
+            
+            // Encode for WhatsApp
+            const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // Scroll Effect for Navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+                nav.classList.replace('h-20', 'h-16');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.replace('h-16', 'h-20');
+            }
+        });
+    </script>
+</body>
+</html>
