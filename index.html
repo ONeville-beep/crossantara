@@ -2,7 +2,7 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Crosantara | Warisan Rasa Nusantara</title>
     
     <!-- Tailwind CSS -->
@@ -48,12 +48,12 @@
         body { 
             background-color: #FDFBF7; 
             background-image: url('https://www.transparenttextures.com/patterns/clean-textile.png');
+            overflow-x: hidden; /* Fix tampilan terpotong/scroll samping */
         }
         
-        /* Motif Batik Cap (Parang & Ceplok Stylized) */
+        /* Motif Batik Cap */
         .pattern-batik-cap {
             background-color: #5D4037;
-            /* Layering gradients untuk membuat efek motif batik */
             background-image: 
                 radial-gradient(circle at 50% 50%, transparent 6px, #D4AF37 7px, #D4AF37 8px, transparent 9px),
                 radial-gradient(circle at 0% 0%, transparent 12px, #4e342e 13px, #4e342e 14px, transparent 15px),
@@ -64,7 +64,7 @@
             background-blend-mode: soft-light;
         }
 
-        /* Motif Kawung CSS Pattern (Background Halus) */
+        /* Motif Kawung */
         .pattern-kawung {
             background-image: 
                 radial-gradient(circle at 100% 50%, transparent 20%, rgba(93, 64, 55, 0.08) 21%, rgba(93, 64, 55, 0.08) 34%, transparent 35%, transparent),
@@ -72,7 +72,7 @@
             background-size: 60px 60px;
         }
 
-        /* Decorative Corners (Siku-siku Ukiran Jepara) */
+        /* Decorative Corners */
         .corner-motif {
             position: absolute;
             width: 30px;
@@ -93,31 +93,27 @@
         .group:hover .corner-bl { transform: translate(-4px, 4px); }
         .group:hover .corner-br { transform: translate(4px, 4px); }
 
-        /* Custom Scrollbar */
         .hide-scroll::-webkit-scrollbar { display: none; }
-        
-        /* Smooth Text Rendering */
         .text-shadow-sm { text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
-        
     </style>
 </head>
-<body class="font-sans text-stone-800 antialiased selection:bg-brand-brown selection:text-brand-gold">
+<body class="font-sans text-stone-800 antialiased selection:bg-brand-brown selection:text-brand-gold pb-24">
 
-    <!-- Top Pattern Strip (Motif Batik Cap) -->
+    <!-- Top Pattern Strip -->
     <div class="h-3 w-full pattern-batik-cap fixed top-0 z-50 shadow-md border-b border-brand-gold/50"></div>
 
     <!-- Navbar -->
     <nav class="fixed w-full z-40 top-3 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-lg border-b border-brand-brown/10" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-16 md:h-20">
                 <!-- Logo -->
                 <a href="#" class="flex items-center gap-3 group">
                     <div class="relative p-2 bg-brand-cream rounded-lg border border-brand-gold/30">
-                        <i data-lucide="croissant" class="h-7 w-7 text-brand-brown transform group-hover:rotate-12 transition"></i>
+                        <i data-lucide="croissant" class="h-6 w-6 md:h-7 md:w-7 text-brand-brown transform group-hover:rotate-12 transition"></i>
                     </div>
                     <div class="flex flex-col">
-                        <span class="font-serif text-2xl font-bold text-brand-dark tracking-wide leading-none">Crosantara<span class="text-brand-gold">.</span></span>
-                        <span class="text-[10px] uppercase tracking-[0.2em] text-brand-terracotta font-medium">Est. 2024</span>
+                        <span class="font-serif text-xl md:text-2xl font-bold text-brand-dark tracking-wide leading-none">Crosantara<span class="text-brand-gold">.</span></span>
+                        <span class="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-brand-terracotta font-medium">Est. 2026</span>
                     </div>
                 </a>
 
@@ -132,34 +128,51 @@
                         <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-brand-gold transition-all group-hover:w-full"></span>
                     </a>
                     
-                    <!-- Button Trigger Quiz -->
                     <button onclick="checkAndOpenQuiz()" class="px-5 py-2.5 bg-brand-brown text-white border border-brand-brown rounded-none rounded-tr-xl rounded-bl-xl hover:bg-brand-dark hover:shadow-lg transition flex items-center gap-2 group relative overflow-hidden">
                         <span class="absolute inset-0 pattern-batik-cap opacity-20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></span>
                         <i data-lucide="brain-circuit" class="w-4 h-4 relative z-10"></i>
                         <span class="relative z-10 font-medium">Tantangan Diskon</span>
                     </button>
 
-                    <!-- Cart Button -->
                     <button onclick="toggleCart()" class="relative p-2 text-brand-brown hover:bg-brand-cream rounded-lg transition group border border-transparent hover:border-brand-gold/30">
                         <i data-lucide="shopping-bag" class="h-6 w-6 group-hover:scale-110 transition"></i>
                         <span id="cart-badge" class="absolute -top-1 -right-1 inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold leading-none text-white bg-brand-terracotta rounded-full shadow-sm hidden">0</span>
                     </button>
                 </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex md:hidden items-center gap-4">
+                    <button onclick="toggleCart()" class="relative p-1 text-brand-brown">
+                        <i data-lucide="shopping-bag" class="h-6 w-6"></i>
+                        <span id="mobile-cart-badge" class="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-[9px] font-bold leading-none text-white bg-brand-terracotta rounded-full shadow-sm hidden">0</span>
+                    </button>
+                    <button onclick="toggleMobileMenu()" class="text-brand-brown p-1">
+                        <i data-lucide="menu" class="h-7 w-7"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-brand-gold/20 absolute w-full shadow-xl">
+            <div class="px-4 pt-4 pb-6 space-y-3">
+                <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-stone-700 hover:text-brand-brown hover:bg-brand-cream rounded-lg">Beranda</a>
+                <a href="#menu" onclick="toggleMobileMenu()" class="block px-3 py-2 text-base font-medium text-stone-700 hover:text-brand-brown hover:bg-brand-cream rounded-lg">Menu Spesial</a>
+                <button onclick="toggleMobileMenu(); checkAndOpenQuiz()" class="w-full text-left px-3 py-2 text-base font-medium text-brand-brown bg-brand-brown/5 rounded-lg flex items-center gap-2">
+                    <i data-lucide="brain-circuit" class="w-4 h-4"></i> Tantangan Diskon
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="relative pt-32 pb-24 lg:pt-48 lg:pb-32 overflow-hidden bg-brand-cream">
-        <!-- Background Elements -->
+    <section id="home" class="relative pt-28 pb-16 lg:pt-48 lg:pb-32 overflow-hidden bg-brand-cream">
         <div class="absolute inset-0 z-0 opacity-10 bg-batik-subtle"></div>
         <div class="absolute top-0 right-0 w-2/3 h-full pattern-kawung opacity-40 mix-blend-multiply pointer-events-none"></div>
-        <div class="absolute -bottom-10 -left-10 w-64 h-64 bg-brand-gold/20 rounded-full blur-[80px]"></div>
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8 animate-fade-in-up text-center lg:text-left relative">
-                    <!-- Ornamen Judul -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                <div class="space-y-6 lg:space-y-8 animate-fade-in-up text-center lg:text-left relative">
                     <div class="hidden lg:block absolute -left-12 top-0 w-1 h-32 bg-gradient-to-b from-brand-gold to-transparent"></div>
                     
                     <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-brand-brown/5 border border-brand-brown/20 rounded-full">
@@ -167,70 +180,58 @@
                         <span class="text-brand-brown text-xs font-bold tracking-widest uppercase">Authentic Indonesian Fusion</span>
                     </div>
                     
-                    <h1 class="text-5xl lg:text-7xl font-serif font-bold text-brand-dark leading-tight text-shadow-sm">
+                    <h1 class="text-4xl md:text-5xl lg:text-7xl font-serif font-bold text-brand-dark leading-tight text-shadow-sm">
                         Warisan Rasa <br>
                         <span class="relative inline-block text-brand-terracotta">
                             Nusantara
-                            <!-- Underline Motif -->
                             <svg class="absolute -bottom-2 w-full h-3 text-brand-gold" viewBox="0 0 100 10" preserveAspectRatio="none">
                                 <path d="M0 5 Q 50 10 100 5" stroke="currentColor" stroke-width="2" fill="none" />
                             </svg>
                         </span>
-                        <span class="block text-4xl lg:text-5xl mt-2 text-stone-600 font-normal italic">Dalam Lipatan Perancis.</span>
+                        <span class="block text-2xl md:text-4xl lg:text-5xl mt-2 text-stone-600 font-normal italic">Dalam Lipatan Perancis.</span>
                     </h1>
                     
-                    <p class="text-lg text-stone-600 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light">
-                        Perpaduan mahakarya kuliner Eropa dengan kekayaan rempah Ibu Pertiwi. Hadirkan sensasi <strong class="text-brand-brown">Klepon Lumer</strong> dan <strong class="text-brand-terracotta">Ayam Rica-rica</strong> yang tak terlupakan.
+                    <p class="text-base md:text-lg text-stone-600 max-w-lg mx-auto lg:mx-0 leading-relaxed font-light">
+                        Perpaduan mahakarya kuliner Eropa dengan kekayaan rempah Ibu Pertiwi. Hadirkan sensasi <strong class="text-brand-brown">Klepon Lumer</strong> dan <strong class="text-brand-terracotta">Ayam Rica-rica</strong>.
                     </p>
                     
-                    <div class="flex flex-col sm:flex-row gap-5 justify-center lg:justify-start pt-4">
-                        <a href="#menu" class="px-8 py-4 bg-brand-brown text-white font-semibold shadow-xl hover:bg-brand-dark transition hover:-translate-y-1 relative overflow-hidden group rounded-tr-2xl rounded-bl-2xl">
-                            <span class="absolute inset-0 w-full h-full pattern-batik-cap opacity-20 group-hover:opacity-30 transition"></span>
-                            <span class="relative z-10">Pesan Sekarang</span>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-2">
+                        <a href="#menu" class="px-8 py-3 md:py-4 bg-brand-brown text-white font-semibold shadow-xl hover:bg-brand-dark transition rounded-tr-2xl rounded-bl-2xl">
+                            Pesan Sekarang
                         </a>
-                        <button onclick="checkAndOpenQuiz()" class="px-8 py-4 bg-transparent text-brand-brown border-2 border-brand-brown/20 font-semibold hover:border-brand-brown hover:bg-brand-brown/5 transition flex items-center justify-center gap-2 rounded-tl-2xl rounded-br-2xl">
-                            <i data-lucide="percent" class="w-5 h-5"></i>
-                            Coba Diskon
+                        <button onclick="checkAndOpenQuiz()" class="px-8 py-3 md:py-4 bg-transparent text-brand-brown border-2 border-brand-brown/20 font-semibold hover:bg-brand-brown/5 transition rounded-tl-2xl rounded-br-2xl flex items-center justify-center gap-2">
+                            <i data-lucide="percent" class="w-5 h-5"></i> Coba Diskon
                         </button>
                     </div>
                 </div>
                 
-                <!-- Hero Visual with Frame -->
-                <div class="relative group perspective-1000">
+                <div class="relative group perspective-1000 mt-8 lg:mt-0">
                     <div class="absolute inset-0 bg-brand-gold/20 transform rotate-3 rounded-3xl scale-95 blur-sm transition-transform group-hover:rotate-6"></div>
-                    <div class="relative grid grid-cols-2 gap-4 p-4 bg-white/50 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl">
-                        <!-- Decorative Corners -->
+                    <div class="relative grid grid-cols-2 gap-3 p-3 bg-white/50 backdrop-blur-sm border border-white/50 rounded-3xl shadow-2xl">
                         <div class="corner-motif corner-tl"></div>
                         <div class="corner-motif corner-tr"></div>
                         <div class="corner-motif corner-bl"></div>
                         <div class="corner-motif corner-br"></div>
-
-                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=600&q=80" 
-                             class="rounded-xl shadow-md transform translate-y-4 hover:-translate-y-1 transition duration-700 object-cover h-64 w-full" 
-                             alt="Klepon Croissant">
-                        <img src="https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=600&q=80" 
-                             class="rounded-xl shadow-md hover:-translate-y-1 transition duration-700 object-cover h-64 w-full" 
-                             alt="Rica Croissant">
+                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=600&q=80" class="rounded-xl shadow-md transform translate-y-4 hover:-translate-y-1 transition duration-700 object-cover h-40 md:h-64 w-full">
+                        <img src="https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=600&q=80" class="rounded-xl shadow-md hover:-translate-y-1 transition duration-700 object-cover h-40 md:h-64 w-full">
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Wave Divider Bottom -->
         <div class="absolute bottom-0 w-full overflow-hidden leading-none">
-            <svg class="relative block w-[calc(100%+1.3px)] h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <svg class="relative block w-[calc(100%+1.3px)] h-[40px] md:h-[60px]" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                 <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="fill-white"></path>
             </svg>
         </div>
     </section>
 
     <!-- Menu Section -->
-    <section id="menu" class="py-24 bg-white relative">
+    <section id="menu" class="py-16 md:py-24 bg-white relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-20 relative">
+            <div class="text-center mb-12 md:mb-20 relative">
                 <span class="text-brand-terracotta font-serif italic text-lg">Pilihan Terbaik</span>
                 <h2 class="text-4xl md:text-5xl font-serif font-bold text-brand-dark mt-2">Menu Andalan</h2>
-                <!-- Decorative Divider Icon -->
                 <div class="flex items-center justify-center gap-4 mt-6">
                     <div class="h-[1px] w-12 bg-brand-gold"></div>
                     <div class="w-3 h-3 rotate-45 border border-brand-brown bg-brand-gold"></div>
@@ -238,59 +239,38 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
-                
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 max-w-5xl mx-auto">
                 <!-- Klepon Card -->
                 <div class="bg-brand-cream group relative flex flex-col shadow-lg hover:shadow-2xl transition-all duration-500 rounded-none">
-                    <!-- Decorative Corners -->
                     <div class="corner-motif corner-tl"></div>
                     <div class="corner-motif corner-tr"></div>
                     <div class="corner-motif corner-bl"></div>
                     <div class="corner-motif corner-br"></div>
 
-                    <div class="h-72 overflow-hidden relative m-3 mb-0">
+                    <div class="h-60 md:h-72 overflow-hidden relative m-3 mb-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0" alt="Klepon">
+                        <img src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                         <div class="absolute bottom-6 left-6 z-20">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-0.5 bg-klepon-green/90 text-white text-[10px] font-bold uppercase tracking-widest border border-white/20">Manis</span>
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-white mb-1 drop-shadow-md">Klepon Lumer</h3>
+                            <span class="px-2 py-0.5 bg-klepon-green/90 text-white text-[10px] font-bold uppercase tracking-widest border border-white/20 mb-2 inline-block">Manis</span>
+                            <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-1 drop-shadow-md">Klepon Lumer</h3>
                             <p class="text-brand-cream/90 text-sm font-light italic">Pandan • Gula Aren • Kelapa</p>
                         </div>
                     </div>
 
-                    <div class="p-8 flex-1 flex flex-col justify-between border-t-2 border-brand-gold/20">
-                        <div class="mb-8 relative">
-                            <p class="text-stone-600 leading-relaxed font-light">Sensasi tradisional yang elegan. Adonan croissant buttery diisi gula aren cair, dilapisi glaze pandan wangi dan taburan kelapa sangrai.</p>
+                    <div class="p-6 md:p-8 flex-1 flex flex-col justify-between border-t-2 border-brand-gold/20">
+                        <div class="mb-6 md:mb-8">
+                            <p class="text-stone-600 leading-relaxed font-light text-sm md:text-base">Sensasi tradisional yang elegan. Adonan croissant buttery diisi gula aren cair, dilapisi glaze pandan wangi dan taburan kelapa sangrai.</p>
                         </div>
-                        
                         <div class="space-y-4">
                             <!-- Made -->
-                            <div class="flex justify-between items-center bg-white p-4 border-l-4 border-l-brand-brown border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
-                                <div>
-                                    <p class="font-bold text-brand-dark font-serif text-lg">Made</p>
-                                    <p class="text-[10px] text-brand-terracotta uppercase tracking-wider">Manis Gede</p>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="font-bold text-brand-dark">Rp 28.000</span>
-                                    <button onclick="addToCart('Klepon Made', 28000, 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-brand-brown text-brand-brown flex items-center justify-center hover:bg-brand-brown hover:text-white transition rounded-full">
-                                        <i data-lucide="plus" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
+                            <div class="flex justify-between items-center bg-white p-3 md:p-4 border-l-4 border-l-brand-brown border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
+                                <div><p class="font-bold text-brand-dark font-serif text-base md:text-lg">Made</p><p class="text-[10px] text-brand-terracotta uppercase tracking-wider">Manis Gede</p></div>
+                                <div class="flex items-center gap-4"><span class="font-bold text-brand-dark">Rp 28.000</span><button onclick="addToCart('Klepon Made', 28000, 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-brand-brown text-brand-brown flex items-center justify-center hover:bg-brand-brown hover:text-white transition rounded-full"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
                             </div>
                             <!-- Macil -->
-                            <div class="flex justify-between items-center bg-white p-4 border-l-4 border-l-stone-300 border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
-                                <div>
-                                    <p class="font-bold text-brand-dark font-serif text-lg">Macil</p>
-                                    <p class="text-[10px] text-stone-500 uppercase tracking-wider">Manis Kecil</p>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="font-bold text-brand-dark">Rp 12.000</span>
-                                    <button onclick="addToCart('Klepon Macil', 12000, 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-stone-400 text-stone-500 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown hover:text-white transition rounded-full">
-                                        <i data-lucide="plus" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
+                            <div class="flex justify-between items-center bg-white p-3 md:p-4 border-l-4 border-l-stone-300 border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
+                                <div><p class="font-bold text-brand-dark font-serif text-base md:text-lg">Macil</p><p class="text-[10px] text-stone-500 uppercase tracking-wider">Manis Kecil</p></div>
+                                <div class="flex items-center gap-4"><span class="font-bold text-brand-dark">Rp 12.000</span><button onclick="addToCart('Klepon Macil', 12000, 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-stone-400 text-stone-500 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown hover:text-white transition rounded-full"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
                             </div>
                         </div>
                     </div>
@@ -298,60 +278,39 @@
 
                 <!-- Rica-Rica Card -->
                 <div class="bg-brand-cream group relative flex flex-col shadow-lg hover:shadow-2xl transition-all duration-500 rounded-none">
-                    <!-- Decorative Corners -->
                     <div class="corner-motif corner-tl"></div>
                     <div class="corner-motif corner-tr"></div>
                     <div class="corner-motif corner-bl"></div>
                     <div class="corner-motif corner-br"></div>
 
-                    <div class="h-72 overflow-hidden relative m-3 mb-0">
+                    <div class="h-60 md:h-72 overflow-hidden relative m-3 mb-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent z-10"></div>
-                        <img src="https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 grayscale-[20%] group-hover:grayscale-0" alt="Rica">
+                        <img src="https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
                         <div class="absolute bottom-6 left-6 z-20">
-                            <div class="flex items-center gap-2 mb-2">
-                                <span class="px-2 py-0.5 bg-rica-red/90 text-white text-[10px] font-bold uppercase tracking-widest border border-white/20">Pedas</span>
-                            </div>
-                            <h3 class="text-3xl font-serif font-bold text-white mb-1 drop-shadow-md">Rica Membara</h3>
+                            <span class="px-2 py-0.5 bg-rica-red/90 text-white text-[10px] font-bold uppercase tracking-widest border border-white/20 mb-2 inline-block">Pedas</span>
+                            <h3 class="text-2xl md:text-3xl font-serif font-bold text-white mb-1 drop-shadow-md">Rica Membara</h3>
                             <p class="text-brand-cream/90 text-sm font-light italic">Ayam Suwir • Pedas • Kemangi</p>
                         </div>
                     </div>
 
-                    <div class="p-8 flex-1 flex flex-col justify-between border-t-2 border-brand-gold/20">
-                        <div class="mb-8">
-                            <p class="text-stone-600 leading-relaxed font-light">Eksotisme Manado dalam satu gigitan. Ayam suwir bumbu rica-rica pedas aromatik, tersembunyi di dalam lapisan croissant renyah.</p>
+                    <div class="p-6 md:p-8 flex-1 flex flex-col justify-between border-t-2 border-brand-gold/20">
+                        <div class="mb-6 md:mb-8">
+                            <p class="text-stone-600 leading-relaxed font-light text-sm md:text-base">Eksotisme Manado dalam satu gigitan. Ayam suwir bumbu rica-rica pedas aromatik, tersembunyi di dalam lapisan croissant renyah.</p>
                         </div>
-                        
                         <div class="space-y-4">
                             <!-- Ade -->
-                            <div class="flex justify-between items-center bg-white p-4 border-l-4 border-l-brand-brown border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
-                                <div>
-                                    <p class="font-bold text-brand-dark font-serif text-lg">Ade</p>
-                                    <p class="text-[10px] text-brand-terracotta uppercase tracking-wider">Asin Gede</p>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="font-bold text-brand-dark">Rp 32.000</span>
-                                    <button onclick="addToCart('Rica Ade', 32000, 'https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-brand-brown text-brand-brown flex items-center justify-center hover:bg-brand-brown hover:text-white transition rounded-full">
-                                        <i data-lucide="plus" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
+                            <div class="flex justify-between items-center bg-white p-3 md:p-4 border-l-4 border-l-brand-brown border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
+                                <div><p class="font-bold text-brand-dark font-serif text-base md:text-lg">Ade</p><p class="text-[10px] text-brand-terracotta uppercase tracking-wider">Asin Gede</p></div>
+                                <div class="flex items-center gap-4"><span class="font-bold text-brand-dark">Rp 32.000</span><button onclick="addToCart('Rica Ade', 32000, 'https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-brand-brown text-brand-brown flex items-center justify-center hover:bg-brand-brown hover:text-white transition rounded-full"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
                             </div>
                             <!-- Acil -->
-                            <div class="flex justify-between items-center bg-white p-4 border-l-4 border-l-stone-300 border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
-                                <div>
-                                    <p class="font-bold text-brand-dark font-serif text-lg">Acil</p>
-                                    <p class="text-[10px] text-stone-500 uppercase tracking-wider">Asin Kecil</p>
-                                </div>
-                                <div class="flex items-center gap-4">
-                                    <span class="font-bold text-brand-dark">Rp 15.000</span>
-                                    <button onclick="addToCart('Rica Acil', 15000, 'https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-stone-400 text-stone-500 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown hover:text-white transition rounded-full">
-                                        <i data-lucide="plus" class="w-5 h-5"></i>
-                                    </button>
-                                </div>
+                            <div class="flex justify-between items-center bg-white p-3 md:p-4 border-l-4 border-l-stone-300 border border-stone-100 hover:border-brand-brown/30 transition shadow-sm">
+                                <div><p class="font-bold text-brand-dark font-serif text-base md:text-lg">Acil</p><p class="text-[10px] text-stone-500 uppercase tracking-wider">Asin Kecil</p></div>
+                                <div class="flex items-center gap-4"><span class="font-bold text-brand-dark">Rp 15.000</span><button onclick="addToCart('Rica Acil', 15000, 'https://images.unsplash.com/photo-1623334044303-241021148842?auto=format&fit=crop&w=100&q=80')" class="w-10 h-10 border border-stone-400 text-stone-500 flex items-center justify-center hover:bg-brand-brown hover:border-brand-brown hover:text-white transition rounded-full"><i data-lucide="plus" class="w-5 h-5"></i></button></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -360,140 +319,84 @@
     <div id="quiz-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
         <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeQuiz()"></div>
         <div class="bg-brand-cream w-full max-w-lg mx-4 shadow-2xl relative z-10 flex flex-col max-h-[85vh] overflow-hidden transform transition-all scale-95 opacity-0 border-2 border-brand-gold/50" id="quiz-content">
-            
-            <!-- Quiz Header -->
             <div class="bg-brand-brown p-6 text-center relative overflow-hidden shrink-0 pattern-batik-cap">
                 <div class="relative z-10">
-                    <h3 class="text-2xl font-serif font-bold text-brand-gold" id="quiz-title">Tantangan Wawasan</h3>
+                    <h3 class="text-2xl font-serif font-bold text-brand-gold">Tantangan Wawasan</h3>
                     <div class="flex items-center justify-center gap-2 mt-2">
                         <div class="h-[1px] w-8 bg-brand-gold/50"></div>
-                        <p class="text-white text-xs uppercase tracking-widest" id="quiz-subtitle">Diskon 50%</p>
+                        <p class="text-white text-xs uppercase tracking-widest">Diskon 50%</p>
                         <div class="h-[1px] w-8 bg-brand-gold/50"></div>
                     </div>
                 </div>
-                <button onclick="closeQuiz()" class="absolute top-4 right-4 text-white/50 hover:text-white transition">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <button onclick="closeQuiz()" class="absolute top-4 right-4 text-white/50 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
 
-            <!-- Content Area -->
             <div class="p-8 overflow-y-auto custom-scrollbar bg-white relative">
                 <div class="absolute inset-0 pattern-kawung opacity-20 pointer-events-none"></div>
 
-                <!-- State: Cooldown / Blocked -->
                 <div id="quiz-blocked" class="hidden text-center relative z-10">
-                    <div class="w-20 h-20 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6 text-stone-500 border-2 border-stone-200 border-dashed">
-                        <i data-lucide="hourglass" class="w-8 h-8"></i>
-                    </div>
+                    <div class="w-20 h-20 bg-stone-100 rounded-full flex items-center justify-center mx-auto mb-6 text-stone-500 border-2 border-stone-200 border-dashed"><i data-lucide="hourglass" class="w-8 h-8"></i></div>
                     <h4 class="text-xl font-bold text-brand-dark mb-2 font-serif">Kesempatan Habis</h4>
-                    <p class="text-stone-600 mb-6 text-sm">Kesempatan hanya datang setiap 2 hari. Bersabarlah seperti menanti adonan mengembang.</p>
-                    <div class="bg-brand-cream border border-brand-brown/20 p-4 mb-6">
-                        <p class="text-[10px] text-brand-brown uppercase tracking-widest mb-1">Coba lagi dalam:</p>
-                        <p id="countdown-timer" class="text-xl font-mono font-bold text-brand-terracotta">00:00:00</p>
-                    </div>
-                    <button onclick="closeQuiz()" class="w-full py-3 bg-stone-800 text-white font-bold hover:bg-black transition uppercase tracking-wider text-sm">
-                        Tutup
-                    </button>
+                    <p class="text-stone-600 mb-6 text-sm">Kesempatan hanya datang setiap 2 hari.</p>
+                    <div class="bg-brand-cream border border-brand-brown/20 p-4 mb-6"><p class="text-[10px] text-brand-brown uppercase tracking-widest mb-1">Coba lagi dalam:</p><p id="countdown-timer" class="text-xl font-mono font-bold text-brand-terracotta">00:00:00</p></div>
+                    <button onclick="closeQuiz()" class="w-full py-3 bg-stone-800 text-white font-bold hover:bg-black transition uppercase tracking-wider text-sm">Tutup</button>
                 </div>
 
-                <!-- State: Form Questions -->
                 <div id="quiz-form-container" class="hidden relative z-10">
                     <form id="quiz-form" onsubmit="submitQuiz(event)" class="space-y-8">
-                        <div id="questions-wrapper" class="space-y-8">
-                            <!-- JS will inject questions here -->
-                        </div>
-                        <button type="submit" class="w-full py-4 bg-brand-brown text-white font-bold hover:bg-brand-dark transition shadow-lg flex items-center justify-center gap-2 border-b-4 border-brand-dark active:border-0 active:translate-y-1">
-                            <span>Kunci Jawaban</span>
-                            <i data-lucide="lock" class="w-4 h-4"></i>
-                        </button>
+                        <div id="questions-wrapper" class="space-y-8"></div>
+                        <button type="submit" class="w-full py-4 bg-brand-brown text-white font-bold hover:bg-brand-dark transition shadow-lg flex items-center justify-center gap-2 border-b-4 border-brand-dark active:border-0 active:translate-y-1"><span>Kunci Jawaban</span><i data-lucide="lock" class="w-4 h-4"></i></button>
                     </form>
                 </div>
 
-                <!-- State: Success -->
                 <div id="quiz-success" class="hidden text-center relative z-10">
-                    <div class="w-24 h-24 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-gold border-2 border-brand-gold animate-bounce">
-                        <i data-lucide="award" class="w-12 h-12"></i>
-                    </div>
+                    <div class="w-24 h-24 bg-brand-gold/10 rounded-full flex items-center justify-center mx-auto mb-6 text-brand-gold border-2 border-brand-gold animate-bounce"><i data-lucide="award" class="w-12 h-12"></i></div>
                     <h3 class="text-2xl font-serif font-bold text-brand-dark mb-2">Luar Biasa!</h3>
-                    <p class="text-stone-600 mb-8 text-sm">Pengetahuan Anda tentang Nusantara layak diacungi jempol.</p>
-                    
-                    <div class="bg-brand-brown p-1 rounded-lg mb-8 shadow-inner">
-                        <div class="bg-brand-cream border border-brand-brown/30 p-4 rounded relative group cursor-pointer hover:bg-white transition" onclick="copyCode()">
-                            <p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">Kode Voucher Anda</p>
-                            <p class="text-3xl font-mono font-bold text-brand-brown tracking-wider">NUSANTARA50</p>
-                            <div class="absolute inset-0 bg-brand-brown/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-                                <span class="text-xs font-bold text-brand-brown bg-white px-3 py-1 shadow-sm border border-brand-brown">Salin Kode</span>
-                            </div>
-                        </div>
-                    </div>
-                    <button onclick="closeQuizAndShop()" class="w-full py-3 bg-brand-terracotta text-white font-bold hover:bg-brand-brown transition shadow-lg uppercase tracking-wider text-sm">
-                        Gunakan Sekarang
-                    </button>
+                    <p class="text-stone-600 mb-8 text-sm">Jawaban benar semua.</p>
+                    <div class="bg-brand-brown p-1 rounded-lg mb-8 shadow-inner"><div class="bg-brand-cream border border-brand-brown/30 p-4 rounded relative group cursor-pointer hover:bg-white transition" onclick="copyCode()"><p class="text-[10px] text-stone-400 uppercase tracking-widest mb-1">Kode Voucher Anda</p><p class="text-3xl font-mono font-bold text-brand-brown tracking-wider">NUSANTARA50</p><div class="absolute inset-0 bg-brand-brown/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"><span class="text-xs font-bold text-brand-brown bg-white px-3 py-1 shadow-sm border border-brand-brown">Salin Kode</span></div></div></div>
+                    <button onclick="closeQuizAndShop()" class="w-full py-3 bg-brand-terracotta text-white font-bold hover:bg-brand-brown transition shadow-lg uppercase tracking-wider text-sm">Gunakan Sekarang</button>
                 </div>
 
-                <!-- State: Fail -->
                 <div id="quiz-fail" class="hidden text-center relative z-10">
-                    <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-800 border-2 border-red-100">
-                        <i data-lucide="x-octagon" class="w-10 h-10"></i>
-                    </div>
+                    <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6 text-red-800 border-2 border-red-100"><i data-lucide="x-octagon" class="w-10 h-10"></i></div>
                     <h3 class="text-2xl font-serif font-bold text-brand-dark mb-2">Kurang Tepat</h3>
-                    <p class="text-stone-600 mb-8 text-sm">Jangan menyerah. Pelajari lagi sejarah bangsa kita dan kembali lagi nanti.</p>
-                    <button onclick="closeQuiz()" class="w-full py-3 bg-stone-200 text-stone-600 font-bold hover:bg-stone-300 transition uppercase tracking-wider text-sm">
-                        Kembali ke Menu
-                    </button>
+                    <p class="text-stone-600 mb-8 text-sm">Jangan menyerah. Coba lagi 2 hari lagi.</p>
+                    <button onclick="closeQuiz()" class="w-full py-3 bg-stone-200 text-stone-600 font-bold hover:bg-stone-300 transition uppercase tracking-wider text-sm">Kembali ke Menu</button>
                 </div>
-
             </div>
         </div>
     </div>
 
-    <!-- Shopping Cart Sidebar -->
+    <!-- Sidebar Cart -->
     <div id="cart-sidebar" class="fixed inset-0 z-[60] hidden">
         <div onclick="toggleCart()" class="absolute inset-0 bg-brand-dark/60 backdrop-blur-sm transition-opacity"></div>
         <div class="absolute right-0 top-0 h-full w-full max-w-md bg-brand-cream shadow-2xl flex flex-col transform transition-transform duration-300 translate-x-full border-l border-brand-brown/20" id="cart-panel">
             <div class="p-6 border-b border-brand-brown/10 flex justify-between items-center bg-white pattern-kawung">
-                <div>
-                    <h2 class="text-xl font-serif font-bold text-brand-dark">Pesanan Anda</h2>
-                    <p class="text-xs text-stone-500">Siap dihidangkan</p>
-                </div>
-                <button onclick="toggleCart()" class="text-stone-400 hover:text-brand-terracotta transition">
-                    <i data-lucide="x" class="w-6 h-6"></i>
-                </button>
+                <div><h2 class="text-xl font-serif font-bold text-brand-dark">Pesanan Anda</h2><p class="text-xs text-stone-500">Siap dihidangkan</p></div>
+                <button onclick="toggleCart()" class="text-stone-400 hover:text-brand-terracotta transition"><i data-lucide="x" class="w-6 h-6"></i></button>
             </div>
-            
             <div id="cart-items" class="flex-1 overflow-y-auto p-6 space-y-4"></div>
-
             <div class="p-6 border-t border-brand-brown/10 bg-white shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
-                <div class="mb-6">
-                    <div class="flex gap-2">
-                        <input type="text" id="discount-code" placeholder="Kode Voucher" class="flex-1 border-2 border-stone-200 bg-stone-50 rounded-none px-4 py-2 text-sm focus:outline-none focus:border-brand-brown uppercase font-mono tracking-wider transition">
-                        <button onclick="applyDiscount()" class="bg-brand-dark text-white px-6 py-2 text-sm font-bold hover:bg-brand-brown transition uppercase tracking-wide">Pakai</button>
-                    </div>
-                    <p id="discount-msg" class="text-xs mt-2 hidden flex items-center gap-1"></p>
-                </div>
-
-                <div class="space-y-3 mb-6 font-serif">
-                    <div class="flex justify-between text-stone-600 text-sm"><span>Subtotal</span><span id="cart-subtotal" class="font-sans font-medium">Rp 0</span></div>
-                    <div class="flex justify-between text-brand-terracotta hidden" id="discount-row"><span>Potongan (50%)</span><span id="discount-amount" class="font-sans font-medium">-Rp 0</span></div>
-                    <div class="flex justify-between text-2xl font-bold text-brand-dark pt-4 border-t border-brand-brown/10"><span>Total</span><span id="cart-total" class="font-sans">Rp 0</span></div>
-                </div>
-                
-                <button onclick="checkout()" class="w-full py-4 bg-brand-brown text-white font-bold hover:bg-brand-dark transition flex justify-center items-center gap-3 shadow-lg group">
-                    <span>Proses Pesanan</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                </button>
+                <div class="mb-6"><div class="flex gap-2"><input type="text" id="discount-code" placeholder="Kode Voucher" class="flex-1 border-2 border-stone-200 bg-stone-50 rounded-none px-4 py-2 text-sm focus:outline-none focus:border-brand-brown uppercase font-mono tracking-wider transition"><button onclick="applyDiscount()" class="bg-brand-dark text-white px-6 py-2 text-sm font-bold hover:bg-brand-brown transition uppercase tracking-wide">Pakai</button></div><p id="discount-msg" class="text-xs mt-2 hidden flex items-center gap-1"></p></div>
+                <div class="space-y-3 mb-6 font-serif"><div class="flex justify-between text-stone-600 text-sm"><span>Subtotal</span><span id="cart-subtotal" class="font-sans font-medium">Rp 0</span></div><div class="flex justify-between text-brand-terracotta hidden" id="discount-row"><span>Potongan (50%)</span><span id="discount-amount" class="font-sans font-medium">-Rp 0</span></div><div class="flex justify-between text-2xl font-bold text-brand-dark pt-4 border-t border-brand-brown/10"><span>Total</span><span id="cart-total" class="font-sans">Rp 0</span></div></div>
+                <button onclick="checkout()" class="w-full py-4 bg-brand-brown text-white font-bold hover:bg-brand-dark transition flex justify-center items-center gap-3 shadow-lg group"><span>Proses Pesanan (WA)</span><i data-lucide="message-circle" class="w-5 h-5 group-hover:scale-110 transition-transform"></i></button>
             </div>
         </div>
     </div>
 
+    <!-- Bottom Floating Cart Bar -->
+    <div id="bottom-cart-bar" class="fixed bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] p-4 hidden transform transition-transform duration-300 translate-y-full">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex flex-col"><span class="text-xs text-stone-500 font-medium font-sans" id="bottom-bar-count">0 Item</span><span class="text-lg font-bold text-brand-dark font-sans" id="bottom-bar-total">Rp 0</span></div>
+            <button onclick="toggleCart()" class="bg-brand-brown text-white px-6 py-3 rounded-full font-bold shadow-lg hover:bg-brand-dark transition flex items-center gap-2"><i data-lucide="shopping-bag" class="w-5 h-5"></i><span class="font-sans">Lihat Pesanan</span></button>
+        </div>
+    </div>
+
     <!-- Toast -->
-    <div id="toast" class="fixed bottom-8 right-8 z-[70] transform translate-y-48 transition-transform duration-500">
-        <div class="bg-brand-dark text-white pl-4 pr-6 py-4 shadow-2xl flex items-center gap-4 border-l-4 border-brand-gold">
+    <div id="toast" class="fixed bottom-24 right-8 z-[70] transform translate-y-48 transition-transform duration-500">
+        <div class="bg-brand-dark text-white pl-4 pr-6 py-4 shadow-2xl flex items-center gap-4 border-l-4 border-brand-gold rounded-lg">
             <div class="bg-brand-gold/20 p-2 rounded-full"><i data-lucide="check" class="w-5 h-5 text-brand-gold"></i></div>
-            <div>
-                <h4 class="font-serif font-bold text-base text-brand-gold">Pesanan Diterima</h4>
-                <p class="text-xs text-stone-400 tracking-wide mt-0.5">Item berhasil ditambahkan.</p>
-            </div>
+            <div><h4 class="font-serif font-bold text-base text-brand-gold">Pesanan Diterima</h4><p class="text-xs text-stone-400 tracking-wide mt-0.5">Item berhasil ditambahkan.</p></div>
         </div>
     </div>
 
@@ -501,34 +404,18 @@
     <footer class="bg-brand-dark text-brand-cream/60 py-16 border-t-8 border-brand-brown relative overflow-hidden">
         <div class="absolute inset-0 pattern-batik-cap opacity-15"></div>
         <div class="max-w-7xl mx-auto px-4 text-center relative z-10 flex flex-col items-center">
-            
-            <div class="w-16 h-16 bg-brand-brown/20 rounded-full flex items-center justify-center mb-6 border border-brand-gold/20">
-                <i data-lucide="croissant" class="h-8 w-8 text-brand-gold"></i>
-            </div>
-            
+            <div class="w-16 h-16 bg-brand-brown/20 rounded-full flex items-center justify-center mb-6 border border-brand-gold/20"><i data-lucide="croissant" class="h-8 w-8 text-brand-gold"></i></div>
             <h2 class="font-serif text-3xl font-bold text-brand-cream mb-2">Crosantara.</h2>
-            <div class="flex items-center gap-4 mb-8">
-                <div class="h-[1px] w-12 bg-brand-gold/30"></div>
-                <p class="text-xs uppercase tracking-[0.3em] text-brand-gold">Est. 2024</p>
-                <div class="h-[1px] w-12 bg-brand-gold/30"></div>
-            </div>
-            
+            <div class="flex items-center gap-4 mb-8"><div class="h-[1px] w-12 bg-brand-gold/30"></div><p class="text-xs uppercase tracking-[0.3em] text-brand-gold">Est. 2026</p><div class="h-[1px] w-12 bg-brand-gold/30"></div></div>
             <p class="text-sm max-w-md mx-auto mb-10 leading-relaxed font-light">"Mengangkat cita rasa lokal ke panggung dunia, satu lipatan pastry pada satu waktu."</p>
-            
-            <div class="flex gap-8 text-sm font-medium tracking-wide">
-                <a href="#" class="hover:text-brand-gold transition border-b border-transparent hover:border-brand-gold pb-1">Instagram</a>
-                <a href="#" class="hover:text-brand-gold transition border-b border-transparent hover:border-brand-gold pb-1">WhatsApp</a>
-                <a href="#" class="hover:text-brand-gold transition border-b border-transparent hover:border-brand-gold pb-1">Lokasi</a>
-            </div>
-            
+            <div class="flex gap-8 text-sm font-medium tracking-wide"><a href="#" class="hover:text-brand-gold transition border-b border-transparent hover:border-brand-gold pb-1">Instagram</a><a href="#" class="hover:text-brand-gold transition border-b border-transparent hover:border-brand-gold pb-1">WhatsApp</a><a href="#" class="hover:text-brand-gold transition border-b border-transparent hover:border-brand-gold pb-1">Lokasi</a></div>
             <p class="text-[10px] text-brand-cream/30 mt-12">&copy; 2026 Crosantara Indonesia. Dibuat dengan cinta dan tepung.</p>
         </div>
-        <!-- Bottom Pattern Strip -->
         <div class="h-3 w-full pattern-batik-cap absolute bottom-0 left-0"></div>
     </footer>
 
     <script>
-        // --- DATA SOAL (BANK SOAL SULIT) ---
+        // --- DATA SOAL ---
         const questionBank = [
             { id: 1, q: "Siapakah tokoh yang dikenal sebagai 'Ayam Jantan dari Timur'?", options: ["Pattimura", "Sultan Hasanuddin", "Pangeran Diponegoro"], a: "Sultan Hasanuddin" },
             { id: 2, q: "Kitab Sutasoma yang memuat semboyan 'Bhinneka Tunggal Ika' ditulis oleh?", options: ["Mpu Tantular", "Mpu Prapanca", "Mpu Gandring"], a: "Mpu Tantular" },
@@ -544,6 +431,12 @@
 
         let currentActiveQuestions = [];
         const COOLDOWN_HOURS = 48;
+
+        // --- MOBILE MENU LOGIC ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
 
         // --- LOGIC KUIS & COOLDOWN ---
         function checkAndOpenQuiz() {
@@ -611,13 +504,7 @@
             e.preventDefault();
             const formData = new FormData(e.target);
             let allCorrect = true;
-
-            currentActiveQuestions.forEach(item => {
-                const userAnswer = formData.get(`q${item.id}`);
-                if (userAnswer !== item.a) {
-                    allCorrect = false;
-                }
-            });
+            currentActiveQuestions.forEach(item => { if (formData.get(`q${item.id}`) !== item.a) allCorrect = false; });
 
             document.getElementById('quiz-form-container').classList.add('hidden');
             localStorage.setItem('crosantara_quiz_last_attempt', new Date().getTime().toString());
@@ -634,23 +521,15 @@
             document.getElementById('quiz-blocked').classList.remove('hidden');
             const timerEl = document.getElementById('countdown-timer');
             const targetTime = parseInt(lastTimestamp) + (COOLDOWN_HOURS * 60 * 60 * 1000);
-            
             const updateTimer = () => {
                 const now = new Date().getTime();
                 const distance = targetTime - now;
-                
-                if (distance < 0) {
-                    timerEl.innerText = "Sekarang!";
-                    return;
-                }
-
+                if (distance < 0) { timerEl.innerText = "Sekarang!"; return; }
                 const hours = Math.floor(distance / (1000 * 60 * 60));
                 const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                
                 timerEl.innerText = `${hours} Jam ${minutes} Menit ${seconds} Detik`;
             };
-            
             updateTimer();
             if (window.quizTimerInterval) clearInterval(window.quizTimerInterval);
             window.quizTimerInterval = setInterval(updateTimer, 1000);
@@ -661,10 +540,7 @@
             const content = document.getElementById('quiz-content');
             content.classList.remove('scale-100', 'opacity-100');
             content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.getElementById('quiz-form').reset();
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); document.getElementById('quiz-form').reset(); }, 300);
         }
 
         // --- CART & SYSTEM ---
@@ -673,11 +549,7 @@
 
         function addToCart(name, price, image) {
             const existingItem = cart.find(item => item.name === name);
-            if (existingItem) {
-                existingItem.qty++;
-            } else {
-                cart.push({ name, price, image, qty: 1 });
-            }
+            if (existingItem) existingItem.qty++; else cart.push({ name, price, image, qty: 1 });
             updateCartUI();
             showToast();
         }
@@ -691,7 +563,6 @@
         function applyDiscount() {
             const codeInput = document.getElementById('discount-code').value.toUpperCase().trim();
             const msgEl = document.getElementById('discount-msg');
-            
             if (codeInput === 'NUSANTARA50') {
                 isDiscountApplied = true;
                 msgEl.innerHTML = `<i data-lucide="check-circle" class="w-3 h-3"></i> Kode valid! Diskon 50% aktif.`;
@@ -714,13 +585,18 @@
 
         function updateCartUI() {
             const badge = document.getElementById('cart-badge');
+            const mobileBadge = document.getElementById('mobile-cart-badge');
+            const bottomBar = document.getElementById('bottom-cart-bar');
+            
             const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
             
             if (totalQty > 0) {
-                badge.innerText = totalQty;
-                badge.classList.remove('hidden');
+                badge.innerText = totalQty; badge.classList.remove('hidden');
+                mobileBadge.innerText = totalQty; mobileBadge.classList.remove('hidden');
+                bottomBar.classList.remove('hidden'); setTimeout(() => bottomBar.classList.remove('translate-y-full'), 10);
             } else {
-                badge.classList.add('hidden');
+                badge.classList.add('hidden'); mobileBadge.classList.add('hidden');
+                bottomBar.classList.add('translate-y-full'); setTimeout(() => bottomBar.classList.add('hidden'), 300);
             }
 
             const cartList = document.getElementById('cart-items');
@@ -737,7 +613,7 @@
                                 <p class="text-xs font-bold text-brand-brown">Rp ${(item.price * item.qty).toLocaleString('id-ID')}</p>
                             </div>
                         </div>
-                        <button onclick="removeFromCart('${item.name}')" class="absolute -top-2 -right-2 bg-stone-200 hover:bg-rica-red hover:text-white text-stone-500 rounded-full p-1 opacity-0 group-hover:opacity-100 transition shadow-md"><i data-lucide="x" class="w-3 h-3"></i></button>
+                        <button onclick="removeFromCart('${item.name}')" class="absolute -top-2 -right-2 bg-stone-200 hover:bg-rica-red hover:text-white text-stone-500 rounded-full p-1 opacity-100 transition shadow-md"><i data-lucide="x" class="w-3 h-3"></i></button>
                     </div>
                 `).join('');
             }
@@ -755,7 +631,11 @@
             } else {
                 discRow.classList.add('hidden');
             }
-            document.getElementById('cart-total').innerText = "Rp " + total.toLocaleString('id-ID');
+            
+            const totalFormatted = "Rp " + total.toLocaleString('id-ID');
+            document.getElementById('cart-total').innerText = totalFormatted;
+            document.getElementById('bottom-bar-total').innerText = totalFormatted;
+            document.getElementById('bottom-bar-count').innerText = `${totalQty} Item`;
         }
 
         function checkout() {
@@ -772,7 +652,7 @@
                 message += `\n*Total Bayar: Rp ${subtotal.toLocaleString('id-ID')}*`;
             }
             
-            window.open(`https://wa.me/6281234567890?text=${encodeURIComponent(message)}`, '_blank');
+            window.open(`https://wa.me/6281222667836?text=${encodeURIComponent(message)}`, '_blank');
         }
 
         function copyCode() {
@@ -808,10 +688,10 @@
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
                 nav.classList.add('shadow-md');
-                nav.style.top = '0'; // Sticky to top
+                nav.style.top = '0';
             } else {
                 nav.classList.remove('shadow-md');
-                nav.style.top = '12px'; // Below the border strip
+                nav.style.top = '12px';
             }
         });
     </script>
